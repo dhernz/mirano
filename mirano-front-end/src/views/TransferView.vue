@@ -19,9 +19,9 @@
 
             <div class = "input mt-2">
                 <div class = "text-center mb-2">
-                    Input a wallet address
+                    Wallet address:
                 </div>
-                <input class = "bg-white rounded-xl p-2 w-[100%] shadow-sm" type = "text" v-model="address"/>
+                <input class = "bg-white rounded-xl p-2 w-[100%] shadow-sm" type = "text" v-model="address" placeholder="e.g.: 0xACa94ef8bD5ffEE41947b4585a84BdA5a3d3DA6E"/>
             </div>
         </div>
 
@@ -32,7 +32,7 @@
                 </div>
                 <br>
                 <div class = "help font-bold text-2xl">
-                    How much money will you send?
+                    Enter an Amount
                 </div>
             </div>
 
@@ -43,7 +43,7 @@
             
             <div class = "input mt-4">
                 <div class = "text-center mb-2">
-                    What is it to be used for?
+                    How would you like this money to be used?
                 </div>
                 <div class = "group flex mt-2" v-for="division in amount.division" :key="division">
                     <div class = "checkbox w-10 h-10 m-auto rounded-xl shadow-md relative cursor-pointer"
@@ -81,7 +81,7 @@
                 </div>
                 <br>
                 <div class = "help font-bold text-2xl">
-                    Check if everything is correct
+                    Please confirm the details of your payment
                 </div>
             </div>
 
@@ -120,7 +120,7 @@
         data: function() {
             return {
                 stage: 0,
-                address: "abcdefghijklmnopqrstuvwxyz",
+                address: "",
                 owner: {
                     name: ""
                     },
@@ -132,15 +132,20 @@
                             amount: 0,
                             name: "Groceries"
                             },
-                        clothes: {
+                        pharmacies: {
                             enabled: false,
                             amount: 0,
-                            name: "Clothes"
+                            name: "Pharmacies"
                             },
-                        videogames: {
+                        restaurants: {
                             enabled: false,
                             amount: 0,
-                            name: "Videogames"
+                            name: "Restaurants"
+                            },
+                        hardware: {
+                            enabled: false,
+                            amount: 0,
+                            name: "Hardware Stores"
                             },
                         unrestricted: {
                             enabled: false,

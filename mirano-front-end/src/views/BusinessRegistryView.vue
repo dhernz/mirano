@@ -182,14 +182,14 @@
         methods: {
             async getSession(){
                 const session = new CustomSession(async function authenticate() {
-                    const response = await axios.post<{token: process.env.PRIVY_API_PUBLIC_KEY}>(process.env.PRIVY_API_URL);
+                    console.log(process.env.VUE_APP_PRIVY_API_PUBLIC_KEY, process.env.VUE_APP_PRIVY_API_URL);
+                    const response = await axios.post<{token: process.env.VUE_APP_PRIVY_API_PUBLIC_KEY}>(process.env.VUE_APP_PRIVY_API_URL);
                     return response.data.token;
                 });
                 const client = new PrivyClient({
                     session: session,
                 });
                 await this.setPrivyData(client);
-                // return client;
             },
             async setPrivyData(client){
                 let r = (Math.random() + 1).toString(36).substring(7);

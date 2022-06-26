@@ -6,6 +6,7 @@
     <div class = "balance text-center">
         <div class = "label">
             Account balance
+            <img src="../assets/wallet_connect.png" v-on:click="connectWallet" />
         </div>
         <div class = "number-eth font-roboto text-4xl">
             ETH {{balance.eth}}
@@ -34,10 +35,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class = "connect bg-blue p-4 text-white text-center mt-4 rounded-xl cursor-pointer font-bold relative">
-        Connect your wallet
-        <router-link to="/connect-wallet" class = "absolute-fit"></router-link>
     </div>
 
     <div class = "history mt-8">
