@@ -6,6 +6,7 @@
     <div class = "balance text-center">
         <div class = "label">
             Account balance
+            <img src="../assets/wallet_connect.png" v-on:click="connectWallet" />
         </div>
         <div class = "number-eth font-roboto text-4xl">
             ETH {{balance.eth}}
@@ -70,26 +71,31 @@
                     {
                     date: "06/01/2022",
                     amount: "-200.00",
-                    text: "Sent to Amalia, not yet spent."
+                    text: "Sent to Robert."
                     },
                     {
                     date: "05/01/2022",
                     amount: "-50.00",
-                    text: "Sent to Saúl, spent, tap for details."
+                    text: "Sent to Saúl."
                     },
                     {
                     date: "06/01/2022",
-                    amount: "-200.00",
-                    text: "Sent to Amalia, not yet spent."
+                    amount: "-100.00",
+                    text: "Sent to Steph."
                     },
                     {
                     date: "05/01/2022",
-                    amount: "-50.00",
-                    text: "Sent to Saúl, spent, tap for details."
+                    amount: "-25.00",
+                    text: "Sent to André."
                     }
                 ]
             }
-        }
+        },
+        methods: {
+            connectWallet () {
+                this.$router.push("/connect-wallet");
+            }
+        },
     };
 </script>
 

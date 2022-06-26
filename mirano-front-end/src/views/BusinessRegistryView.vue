@@ -8,20 +8,30 @@
             </div>
 
             <div class = "header relative text-center">
-                <div class = "number bg-blue rounded-full p-4 inline-block relative">
+                <!-- <div class = "number bg-blue rounded-full p-4 inline-block relative">
                     <div class = "absolute-center text-white font-bold">1</div>
-                </div>
+                </div> -->
                 <br>
                 <div class = "help font-bold text-2xl">
-                    Send money
+                    Business Registration
                 </div>
             </div>
 
             <div class = "input mt-2">
                 <div class = "text-center mb-2">
-                    Input a wallet address
+                    Get Started
                 </div>
-                <input class = "bg-white rounded-xl p-2 w-[100%] shadow-sm" type = "text" v-model="address"/>
+                <input class = "bg-white rounded-xl p-2 w-[100%] shadow-sm" type = "text" v-model="businessName" placeholder="Business Name"/>
+            </div>
+
+            <div class = "input mt-2">
+                <select class = "bg-white rounded-xl p-2 w-[100%] shadow-sm" v-model="businessCategory">
+                    <option v-for="category in businessCategories" v-bind:key=category.value v-bind:value="category.value">{{category.name}}</option>
+                </select>
+            </div>
+
+            <div class = "input mt-2">
+                <input class = "bg-white rounded-xl p-2 w-[100%] shadow-sm" type = "text" v-model="businessAddress" placeholder="Business Address"/>
             </div>
         </div>
 
@@ -119,6 +129,17 @@
             return {
                 stage: 0,
                 address: "abcdefghijklmnopqrstuvwxyz",
+                businessName: "",
+                businessCategory: "0",
+                businessCategories: [
+                    { name: "Select a Category", value: "0" },
+                    { name: "Groceries", value: "1" },
+                    { name: "Pharmacies", value: "2" },
+                    { name: "Hardware Stores", value: "3" },
+                    { name: "Education", value: "4" },
+                    { name: "Utilities", value: "5" },
+                    ],
+                businessAddress: null,
                 owner: {
                     name: ""
                     },
@@ -154,6 +175,7 @@
             goNext() {
                 switch(this.stage) {
                     case 0:
+                        // Insert code to call privy
                         break;
 
                     case 1:

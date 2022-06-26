@@ -19,6 +19,24 @@ const routes = [
         name: 'transfer',
         component: () => import('../views/TransferView.vue')
         },
+    
+    // --------------------------------------------------------------------------
+    // BUSINESS REGISTRY
+    // --------------------------------------------------------------------------
+        {
+        path: '/business-registry',
+        name: 'business-registry',
+        component: () => import('../views/BusinessRegistryView.vue')
+        },
+
+    // --------------------------------------------------------------------------
+    // CONNECT WALLET
+    // --------------------------------------------------------------------------
+        {
+        path: '/connect-wallet',
+        name: 'connect-wallet',
+        component: () => import('../views/ConnectWalletView.vue')
+        },
     ]
     
 
