@@ -65,7 +65,7 @@ contract Mirano {
         bytes32 eip712 = Hash.domain(
             Swivel.NAME,
             Swivel.VERSION,
-            137,
+            80001,
             contractAddress
         );
 
