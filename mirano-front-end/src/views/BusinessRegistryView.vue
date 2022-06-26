@@ -129,7 +129,7 @@
 
 <script>
     import axios from "axios";
-    import {PrivyClient, CustomSession} from '@privy-io/privy-browser';
+    import {PrivyClient, CustomSession, PublicSession} from '@privy-io/privy-browser';
     export default {
         data: function() {
             return {
@@ -180,10 +180,34 @@
         },
 
         methods: {
+            async getPublicSession(){
+                console.log("key", process.env.VUE_APP_PRIVY_API_PUBLIC_KEY);
+                const session = new PublicSession({apiKey: process.env.VUE_APP_PRIVY_API_SECRET_KEY});
+                const client = new PrivyClient({
+                    session: session,
+                });
+                await this.setPrivyData(client);
+            },
             async getSession(){
                 const session = new CustomSession(async function authenticate() {
                     console.log(process.env.VUE_APP_PRIVY_API_PUBLIC_KEY, process.env.VUE_APP_PRIVY_API_URL);
-                    const response = await axios.post<{token: process.env.VUE_APP_PRIVY_API_PUBLIC_KEY}>(process.env.VUE_APP_PRIVY_API_URL);
+                    // const response = await axios.post<{token: process.env.VUE_APP_PRIVY_API_PUBLIC_KEY}>(process.env.VUE_APP_PRIVY_API_URL);
+                    const data = JSON.stringify({
+                        "token": process.env.VUE_APP_PRIVY_API_PUBLIC_KEY
+                    });
+                    const config = {
+                        method: "post",
+                        headers: {
+                            "auth": {
+                                username: process.env.VUE_APP_PRIVY_API_PUBLIC_KEY,
+                                password: process.env.VUE_APP_PRIVY_API_SECRET_KEY
+                            },
+                            "Content-Type": "application/json"
+                        },
+                        data: data
+                    }
+                    // const response = await axios.post<{token: process.env.VUE_APP_PRIVY_API_PUBLIC_KEY}>(process.env.VUE_APP_PRIVY_API_URL+"auth/token");
+                    const response = await axios(config);
                     return response.data.token;
                 });
                 const client = new PrivyClient({
@@ -194,6 +218,7 @@
             async setPrivyData(client){
                 let r = (Math.random() + 1).toString(36).substring(7);
                 const businessId = r;
+                console.log("client: ", client);
                 // To write...
                 // eslint-disable-next-line no-unused-vars
                 const [name, category, email, address] = await client.put(businessId, [
@@ -202,7 +227,7 @@
                     {field: 'email', value: this.businessEmail},
                     {field: 'address', value: this.businessAddress},
                 ]);
-                console.log(name, category, address);
+                console.log(name, category, email, address);
             },
             goNext() {
                 switch(this.stage) {
