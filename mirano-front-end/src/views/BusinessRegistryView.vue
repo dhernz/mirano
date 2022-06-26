@@ -31,6 +31,10 @@
             </div>
 
             <div class = "input mt-2">
+                <input class = "bg-white rounded-xl p-2 w-[100%] shadow-sm" type = "text" v-model="businessEmail" placeholder="Business Email"/>
+            </div>
+
+            <div class = "input mt-2">
                 <input class = "bg-white rounded-xl p-2 w-[100%] shadow-sm" type = "text" v-model="businessAddress" placeholder="Business Address"/>
             </div>
         </div>
@@ -124,9 +128,12 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import {PrivyClient, CustomSession} from '@privy-io/privy-browser';
     export default {
         data: function() {
             return {
+                // session: getSession(),
                 stage: 0,
                 address: "abcdefghijklmnopqrstuvwxyz",
                 businessName: "",
@@ -140,6 +147,7 @@
                     { name: "Utilities", value: "5" },
                     ],
                 businessAddress: null,
+                businessEmail: null,
                 owner: {
                     name: ""
                     },
@@ -172,10 +180,35 @@
         },
 
         methods: {
+            async getSession(){
+                const session = new CustomSession(async function authenticate() {
+                    const response = await axios.post<{token: process.env.PRIVY_API_PUBLIC_KEY}>(process.env.PRIVY_API_URL);
+                    return response.data.token;
+                });
+                const client = new PrivyClient({
+                    session: session,
+                });
+                await this.setPrivyData(client);
+                // return client;
+            },
+            async setPrivyData(client){
+                let r = (Math.random() + 1).toString(36).substring(7);
+                const businessId = r;
+                // To write...
+                // eslint-disable-next-line no-unused-vars
+                const [name, category, email, address] = await client.put(businessId, [
+                    {field: 'name', value: this.businessName},
+                    {field: 'category', value: this.businessCategory},
+                    {field: 'email', value: this.businessEmail},
+                    {field: 'address', value: this.businessAddress},
+                ]);
+                console.log(name, category, address);
+            },
             goNext() {
                 switch(this.stage) {
                     case 0:
                         // Insert code to call privy
+                        this.getSession();
                         break;
 
                     case 1:
@@ -187,7 +220,7 @@
                     default:
                         break;
                     }
-                this.stage = Math.min(2,this.stage+1);
+                // this.stage = Math.min(2,this.stage+1);
             },
 
             goPrevious() {

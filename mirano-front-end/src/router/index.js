@@ -37,6 +37,15 @@ const routes = [
         name: 'connect-wallet',
         component: () => import('../views/ConnectWalletView.vue')
         },
+
+    // --------------------------------------------------------------------------
+    // LOGIN
+    // --------------------------------------------------------------------------
+        {
+        path: '/login',
+        name: 'login',
+        component: () => import('../views/LoginView.vue')
+        },
     ]
     
 
